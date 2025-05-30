@@ -907,9 +907,7 @@ export const GoalsManager = () => {
         <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md">
             <div className="text-center mb-8">
-              <User className="mx-auto h-16 w-16 text-blue-500 mb-4" />
-              <h1 className="text-2xl font-bold text-gray-800 mb-2">My Progress At</h1>
-              <p className="text-gray-600">Start tracking your professional development</p>
+              <img src="/logo.png" alt="Next.js logo" className="max-w-[50%] w-[50%] mx-auto mb-4" />
             </div>
 
             <div className="space-y-4">
