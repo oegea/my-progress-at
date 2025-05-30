@@ -1,5 +1,3 @@
-# Goals Manager
-
 <div align="center">
   <img src="./public/logo.png" alt="My Progress At Logo" width="200">
 </div>
