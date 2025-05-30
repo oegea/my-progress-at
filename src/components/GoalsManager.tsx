@@ -67,11 +67,13 @@ export const GoalsManager = () => {
       const reader = new FileReader();
       reader.onload = (e) => {
         try {
-          const data = JSON.parse(e.target.result);
+          const result: string = e?.target?.result as string;
+          const data = JSON.parse(result);
           setPerson(data);
           setExpandedStages(new Set());
           setExpandedObjectives(new Set());
         } catch (error) {
+          console.error(error);
           alert('Error loading JSON file');
         }
       };
@@ -504,7 +506,7 @@ export const GoalsManager = () => {
 
   // Modal Component
   const Modal = () => {
-    const [formData, setFormData] = useState(modalData);
+    const [formData, setFormData] = useState<any>(modalData);
 
     const updateFormData = (key, value) => {
       setFormData(prev => ({ ...prev, [key]: value }));
@@ -1019,7 +1021,7 @@ export const GoalsManager = () => {
           ) : (
             <div className="space-y-4">
               {person.stages
-                .sort((a, b) => new Date(b.startDate || b.createdAt || 0) - new Date(a.startDate || a.createdAt || 0))
+                .sort((a, b) => (new Date(b.startDate || b.createdAt || 0) as any) - (new Date(a.startDate || a.createdAt || 0) as any))
                 .map((stage) => (
                 <div key={stage.id} className="bg-white rounded-lg shadow border">
                   <div
