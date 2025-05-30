@@ -3,6 +3,36 @@
 import React, { useState, useRef } from 'react';
 import { Plus, Upload, Download, Calendar, Target, CheckCircle, Circle, ChevronDown, ChevronRight, User, FileText, X, Edit, Trash2 } from 'lucide-react';
 
+const Footer = () => {
+  return (
+    <footer className="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-sm border-t border-gray-200 py-2 z-30">
+      <div className="max-w-6xl mx-auto px-4 text-center">
+        <p className="text-xs text-gray-400">
+          Developed by{' '}
+          <a 
+            href="https://github.com/oegea" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-gray-500 hover:text-blue-600 transition-colors"
+          >
+            Oriol Egea
+          </a>{' '}
+          with ❤️ (and AI 🤖) from Barcelona.{' '}
+          Licensed under MIT.{' '}
+          <a 
+            href="https://github.com/oegea/my-progress-at" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-gray-500 hover:text-blue-600 transition-colors"
+          >
+            Source code is available here
+          </a>.
+        </p>
+      </div>
+    </footer>
+  )
+}
+
 export const GoalsManager = () => {
   const [person, setPerson] = useState(null);
   const [expandedStages, setExpandedStages] = useState(new Set());
@@ -937,6 +967,7 @@ export const GoalsManager = () => {
             </div>
           </div>
         </div>
+        <Footer />
         {showModal && <Modal />}
       </>
     );
@@ -1100,203 +1131,205 @@ export const GoalsManager = () => {
                           <p className="text-gray-500 text-center py-4">No objectives defined</p>
                         ) : (
                           <div className="space-y-3">
-                            {stage.objectives.map((objective) => (
-                              <div key={objective.id} className="bg-white rounded border">
-                                <div
-                                  className="p-3 cursor-pointer hover:bg-gray-50 transition-colors"
-                                  onClick={() => toggleObjectiveExpansion(objective.id)}
-                                >
-                                  <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-2">
-                                      {expandedObjectives.has(objective.id) ? (
-                                        <ChevronDown className="h-4 w-4 text-gray-400" />
-                                      ) : (
-                                        <ChevronRight className="h-4 w-4 text-gray-400" />
+                            {stage.objectives
+                              .sort((a, b) => (new Date(b.startDate || b.createdAt || 0) as any) - (new Date(a.startDate || a.createdAt || 0) as any))
+                              .map((objective) => (
+                                <div key={objective.id} className="bg-white rounded border">
+                                  <div
+                                    className="p-3 cursor-pointer hover:bg-gray-50 transition-colors"
+                                    onClick={() => toggleObjectiveExpansion(objective.id)}
+                                  >
+                                    <div className="flex items-center justify-between">
+                                      <div className="flex items-center gap-2">
+                                        {expandedObjectives.has(objective.id) ? (
+                                          <ChevronDown className="h-4 w-4 text-gray-400" />
+                                        ) : (
+                                          <ChevronRight className="h-4 w-4 text-gray-400" />
+                                        )}
+                                        <Target className="h-4 w-4 text-orange-500" />
+                                        <div>
+                                          <div className="flex items-center gap-2">
+                                            <h5 className="font-medium text-gray-800">{objective.title}</h5>
+                                            <span className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusInfo(objective.status).color}`}>
+                                              {getStatusInfo(objective.status).label}
+                                            </span>
+                                          </div>
+                                          <div className="text-xs text-gray-500">
+                                            {objective.startDate} {objective.endDate && `- ${objective.endDate}`}
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div className="flex items-center gap-2">
+                                        <div className="text-right">
+                                          <div className="text-xs font-medium text-gray-600">
+                                            {getObjectiveProgress(objective)}%
+                                          </div>
+                                          <div className="w-16 bg-gray-200 rounded-full h-1.5">
+                                            <div
+                                              className="bg-orange-500 h-1.5 rounded-full transition-all"
+                                              style={{ width: `${getObjectiveProgress(objective)}%` }}
+                                            ></div>
+                                          </div>
+                                        </div>
+                                        <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
+                                          <button
+                                            onClick={() => openModal('objective', { ...objective, stageId: stage.id }, objective.id)}
+                                            className="text-gray-400 hover:text-blue-500 transition-colors cursor-pointer"
+                                          >
+                                            <Edit className="h-3 w-3" />
+                                          </button>
+                                          <button
+                                            onClick={() => deleteObjective(stage.id, objective.id)}
+                                            className="text-gray-400 hover:text-red-500 transition-colors cursor-pointer"
+                                          >
+                                            <Trash2 className="h-3 w-3" />
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  {expandedObjectives.has(objective.id) && (
+                                    <div className="border-t bg-gray-50 p-3">
+                                      {objective.motivation && (
+                                        <div className="mb-3">
+                                          <h6 className="text-xs font-medium text-gray-600 mb-1">Motivation</h6>
+                                          <p className="text-sm text-gray-700">{objective.motivation}</p>
+                                        </div>
                                       )}
-                                      <Target className="h-4 w-4 text-orange-500" />
-                                      <div>
-                                        <div className="flex items-center gap-2">
-                                          <h5 className="font-medium text-gray-800">{objective.title}</h5>
-                                          <span className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusInfo(objective.status).color}`}>
-                                            {getStatusInfo(objective.status).label}
-                                          </span>
+                                      
+                                      {objective.expectedResults && (
+                                        <div className="mb-3">
+                                          <h6 className="text-xs font-medium text-gray-600 mb-1">Expected Results</h6>
+                                          <p className="text-sm text-gray-700">{objective.expectedResults}</p>
                                         </div>
-                                        <div className="text-xs text-gray-500">
-                                          {objective.startDate} {objective.endDate && `- ${objective.endDate}`}
+                                      )}
+
+                                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        {/* Tasks */}
+                                        <div>
+                                          <div className="flex justify-between items-center mb-2">
+                                            <h6 className="text-xs font-medium text-gray-600">Tasks</h6>
+                                            <button
+                                              onClick={() => openModal('task', { stageId: stage.id, objectiveId: objective.id })}
+                                              className="flex items-center gap-1 px-2 py-1 bg-orange-500 hover:bg-orange-600 text-white text-xs rounded transition-colors cursor-pointer"
+                                            >
+                                              <Plus className="h-3 w-3" />
+                                              Task
+                                            </button>
+                                          </div>
+
+                                          {(!objective.tasks || objective.tasks.length === 0) ? (
+                                            <p className="text-xs text-gray-500 text-center py-2">No tasks defined</p>
+                                          ) : (
+                                            <div className="space-y-2">
+                                              {objective.tasks.map((task) => (
+                                                <div
+                                                  key={task.id}
+                                                  className="flex items-center gap-2 p-2 bg-white rounded border group"
+                                                >
+                                                  <button
+                                                    onClick={() => toggleTask(stage.id, objective.id, task.id)}
+                                                    className="flex-shrink-0 cursor-pointer"
+                                                  >
+                                                    {task.completed ? (
+                                                      <CheckCircle className="h-4 w-4 text-green-500" />
+                                                    ) : (
+                                                      <Circle className="h-4 w-4 text-gray-400" />
+                                                    )}
+                                                  </button>
+                                                  <span className={`text-sm flex-1 ${task.completed ? 'line-through text-gray-500' : 'text-gray-700'}`}>
+                                                    {task.description}
+                                                  </span>
+                                                  <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                    <button
+                                                      onClick={() => openModal('task', { ...task, stageId: stage.id, objectiveId: objective.id }, task.id)}
+                                                      className="text-gray-400 hover:text-blue-500 transition-colors cursor-pointer"
+                                                    >
+                                                      <Edit className="h-3 w-3" />
+                                                    </button>
+                                                    <button
+                                                      onClick={() => deleteTask(stage.id, objective.id, task.id)}
+                                                      className="text-gray-400 hover:text-red-500 transition-colors cursor-pointer"
+                                                    >
+                                                      <Trash2 className="h-3 w-3" />
+                                                    </button>
+                                                  </div>
+                                                  {task.completed && task.completedAt && (
+                                                    <span className="text-xs text-gray-400">
+                                                      {new Date(task.completedAt).toLocaleDateString()}
+                                                    </span>
+                                                  )}
+                                                </div>
+                                              ))}
+                                            </div>
+                                          )}
+                                        </div>
+
+                                        {/* Results */}
+                                        <div>
+                                          <div className="flex justify-between items-center mb-2">
+                                            <h6 className="text-xs font-medium text-gray-600">Results</h6>
+                                            <button
+                                              onClick={() => openModal('outcome', { stageId: stage.id, objectiveId: objective.id })}
+                                              className="flex items-center gap-1 px-2 py-1 bg-green-500 hover:bg-green-600 text-white text-xs rounded transition-colors cursor-pointer"
+                                            >
+                                              <Plus className="h-3 w-3" />
+                                              Result
+                                            </button>
+                                          </div>
+
+                                          {(!objective.outcomes || objective.outcomes.length === 0) ? (
+                                            <p className="text-xs text-gray-500 text-center py-2">No results defined</p>
+                                          ) : (
+                                            <div className="space-y-2">
+                                              {objective.outcomes.map((outcome) => (
+                                                <div
+                                                  key={outcome.id}
+                                                  className="flex items-center gap-2 p-2 bg-white rounded border group"
+                                                >
+                                                  <button
+                                                    onClick={() => toggleOutcome(stage.id, objective.id, outcome.id)}
+                                                    className="flex-shrink-0 cursor-pointer"
+                                                  >
+                                                    {outcome.achieved ? (
+                                                      <CheckCircle className="h-4 w-4 text-green-500" />
+                                                    ) : (
+                                                      <Circle className="h-4 w-4 text-gray-400" />
+                                                    )}
+                                                  </button>
+                                                  <span className={`text-sm flex-1 ${outcome.achieved ? 'line-through text-gray-500' : 'text-gray-700'}`}>
+                                                    {outcome.description}
+                                                  </span>
+                                                  <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                    <button
+                                                      onClick={() => openModal('outcome', { ...outcome, stageId: stage.id, objectiveId: objective.id }, outcome.id)}
+                                                      className="text-gray-400 hover:text-blue-500 transition-colors cursor-pointer"
+                                                    >
+                                                      <Edit className="h-3 w-3" />
+                                                    </button>
+                                                    <button
+                                                      onClick={() => deleteOutcome(stage.id, objective.id, outcome.id)}
+                                                      className="text-gray-400 hover:text-red-500 transition-colors cursor-pointer"
+                                                    >
+                                                      <Trash2 className="h-3 w-3" />
+                                                    </button>
+                                                  </div>
+                                                  {outcome.achieved && outcome.achievedAt && (
+                                                    <span className="text-xs text-gray-400">
+                                                      {new Date(outcome.achievedAt).toLocaleDateString()}
+                                                    </span>
+                                                  )}
+                                                </div>
+                                              ))}
+                                            </div>
+                                          )}
                                         </div>
                                       </div>
                                     </div>
-                                    <div className="flex items-center gap-2">
-                                      <div className="text-right">
-                                        <div className="text-xs font-medium text-gray-600">
-                                          {getObjectiveProgress(objective)}%
-                                        </div>
-                                        <div className="w-16 bg-gray-200 rounded-full h-1.5">
-                                          <div
-                                            className="bg-orange-500 h-1.5 rounded-full transition-all"
-                                            style={{ width: `${getObjectiveProgress(objective)}%` }}
-                                          ></div>
-                                        </div>
-                                      </div>
-                                      <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
-                                        <button
-                                          onClick={() => openModal('objective', { ...objective, stageId: stage.id }, objective.id)}
-                                          className="text-gray-400 hover:text-blue-500 transition-colors cursor-pointer"
-                                        >
-                                          <Edit className="h-3 w-3" />
-                                        </button>
-                                        <button
-                                          onClick={() => deleteObjective(stage.id, objective.id)}
-                                          className="text-gray-400 hover:text-red-500 transition-colors cursor-pointer"
-                                        >
-                                          <Trash2 className="h-3 w-3" />
-                                        </button>
-                                      </div>
-                                    </div>
-                                  </div>
+                                  )}
                                 </div>
-
-                                {expandedObjectives.has(objective.id) && (
-                                  <div className="border-t bg-gray-50 p-3">
-                                    {objective.motivation && (
-                                      <div className="mb-3">
-                                        <h6 className="text-xs font-medium text-gray-600 mb-1">Motivation</h6>
-                                        <p className="text-sm text-gray-700">{objective.motivation}</p>
-                                      </div>
-                                    )}
-                                    
-                                    {objective.expectedResults && (
-                                      <div className="mb-3">
-                                        <h6 className="text-xs font-medium text-gray-600 mb-1">Expected Results</h6>
-                                        <p className="text-sm text-gray-700">{objective.expectedResults}</p>
-                                      </div>
-                                    )}
-
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                      {/* Tasks */}
-                                      <div>
-                                        <div className="flex justify-between items-center mb-2">
-                                          <h6 className="text-xs font-medium text-gray-600">Tasks</h6>
-                                          <button
-                                            onClick={() => openModal('task', { stageId: stage.id, objectiveId: objective.id })}
-                                            className="flex items-center gap-1 px-2 py-1 bg-orange-500 hover:bg-orange-600 text-white text-xs rounded transition-colors cursor-pointer"
-                                          >
-                                            <Plus className="h-3 w-3" />
-                                            Task
-                                          </button>
-                                        </div>
-
-                                        {(!objective.tasks || objective.tasks.length === 0) ? (
-                                          <p className="text-xs text-gray-500 text-center py-2">No tasks defined</p>
-                                        ) : (
-                                          <div className="space-y-2">
-                                            {objective.tasks.map((task) => (
-                                              <div
-                                                key={task.id}
-                                                className="flex items-center gap-2 p-2 bg-white rounded border group"
-                                              >
-                                                <button
-                                                  onClick={() => toggleTask(stage.id, objective.id, task.id)}
-                                                  className="flex-shrink-0 cursor-pointer"
-                                                >
-                                                  {task.completed ? (
-                                                    <CheckCircle className="h-4 w-4 text-green-500" />
-                                                  ) : (
-                                                    <Circle className="h-4 w-4 text-gray-400" />
-                                                  )}
-                                                </button>
-                                                <span className={`text-sm flex-1 ${task.completed ? 'line-through text-gray-500' : 'text-gray-700'}`}>
-                                                  {task.description}
-                                                </span>
-                                                <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                                  <button
-                                                    onClick={() => openModal('task', { ...task, stageId: stage.id, objectiveId: objective.id }, task.id)}
-                                                    className="text-gray-400 hover:text-blue-500 transition-colors cursor-pointer"
-                                                  >
-                                                    <Edit className="h-3 w-3" />
-                                                  </button>
-                                                  <button
-                                                    onClick={() => deleteTask(stage.id, objective.id, task.id)}
-                                                    className="text-gray-400 hover:text-red-500 transition-colors cursor-pointer"
-                                                  >
-                                                    <Trash2 className="h-3 w-3" />
-                                                  </button>
-                                                </div>
-                                                {task.completed && task.completedAt && (
-                                                  <span className="text-xs text-gray-400">
-                                                    {new Date(task.completedAt).toLocaleDateString()}
-                                                  </span>
-                                                )}
-                                              </div>
-                                            ))}
-                                          </div>
-                                        )}
-                                      </div>
-
-                                      {/* Results */}
-                                      <div>
-                                        <div className="flex justify-between items-center mb-2">
-                                          <h6 className="text-xs font-medium text-gray-600">Results</h6>
-                                          <button
-                                            onClick={() => openModal('outcome', { stageId: stage.id, objectiveId: objective.id })}
-                                            className="flex items-center gap-1 px-2 py-1 bg-green-500 hover:bg-green-600 text-white text-xs rounded transition-colors cursor-pointer"
-                                          >
-                                            <Plus className="h-3 w-3" />
-                                            Result
-                                          </button>
-                                        </div>
-
-                                        {(!objective.outcomes || objective.outcomes.length === 0) ? (
-                                          <p className="text-xs text-gray-500 text-center py-2">No results defined</p>
-                                        ) : (
-                                          <div className="space-y-2">
-                                            {objective.outcomes.map((outcome) => (
-                                              <div
-                                                key={outcome.id}
-                                                className="flex items-center gap-2 p-2 bg-white rounded border group"
-                                              >
-                                                <button
-                                                  onClick={() => toggleOutcome(stage.id, objective.id, outcome.id)}
-                                                  className="flex-shrink-0 cursor-pointer"
-                                                >
-                                                  {outcome.achieved ? (
-                                                    <CheckCircle className="h-4 w-4 text-green-500" />
-                                                  ) : (
-                                                    <Circle className="h-4 w-4 text-gray-400" />
-                                                  )}
-                                                </button>
-                                                <span className={`text-sm flex-1 ${outcome.achieved ? 'line-through text-gray-500' : 'text-gray-700'}`}>
-                                                  {outcome.description}
-                                                </span>
-                                                <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                                  <button
-                                                    onClick={() => openModal('outcome', { ...outcome, stageId: stage.id, objectiveId: objective.id }, outcome.id)}
-                                                    className="text-gray-400 hover:text-blue-500 transition-colors cursor-pointer"
-                                                  >
-                                                    <Edit className="h-3 w-3" />
-                                                  </button>
-                                                  <button
-                                                    onClick={() => deleteOutcome(stage.id, objective.id, outcome.id)}
-                                                    className="text-gray-400 hover:text-red-500 transition-colors cursor-pointer"
-                                                  >
-                                                    <Trash2 className="h-3 w-3" />
-                                                  </button>
-                                                </div>
-                                                {outcome.achieved && outcome.achievedAt && (
-                                                  <span className="text-xs text-gray-400">
-                                                    {new Date(outcome.achievedAt).toLocaleDateString()}
-                                                  </span>
-                                                )}
-                                              </div>
-                                            ))}
-                                          </div>
-                                        )}
-                                      </div>
-                                    </div>
-                                  </div>
-                                )}
-                              </div>
-                            ))}
+                              ))}
                           </div>
                         )}
 
@@ -1365,6 +1398,8 @@ export const GoalsManager = () => {
             </div>
           )}
         </div>
+        {/* Footer */}
+        <Footer />
       </div>
       {showModal && <Modal />}
     </>
