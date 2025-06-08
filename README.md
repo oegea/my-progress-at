@@ -15,7 +15,7 @@ My Progress At is a simple and intuitive goal tracking application designed for 
 - **Data Export/Import**: Save progress as JSON files for backup or sharing
 - **Status Management**: Track progress with status indicators (Planned, In Progress, Completed, Discarded)
 
-## Why Goals Manager?
+## Why My Progress At?
 
 - **No Backend Required**: Everything runs in your browser - no server setup needed
 - **Privacy First**: Your data stays on your device, no external servers involved
@@ -34,7 +34,7 @@ My Progress At is a simple and intuitive goal tracking application designed for 
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/your-username/goals-manager.git
+git clone https://github.com/oegea/my-progress-at.git
 cd goals-manager
 ```
 
