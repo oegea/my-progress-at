@@ -5,15 +5,15 @@ import { Plus, Upload, Download, Calendar, Target, CheckCircle, Circle, ChevronD
 
 const Footer = () => {
   return (
-    <footer className="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-sm border-t border-gray-200 py-2 z-30">
+    <footer className="fixed bottom-0 left-0 right-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border-t border-gray-200 dark:border-gray-700 py-2 z-30">
       <div className="max-w-6xl mx-auto px-4 text-center">
-        <p className="text-xs text-gray-400">
+        <p className="text-xs text-gray-400 dark:text-gray-500">
           Developed by{' '}
           <a 
             href="https://github.com/oegea" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="text-gray-500 hover:text-blue-600 transition-colors"
+            className="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
           >
             Oriol Egea
           </a>{' '}
@@ -23,7 +23,7 @@ const Footer = () => {
             href="https://github.com/oegea/my-progress-at" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="text-gray-500 hover:text-blue-600 transition-colors"
+            className="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
           >
             Source code is available here
           </a>.
@@ -45,10 +45,10 @@ export const GoalsManager = () => {
   const fileInputRef = useRef(null);
 
   const statusOptions = [
-    { value: 'planned', label: 'Planned', color: 'bg-gray-100 text-gray-800' },
-    { value: 'in_progress', label: 'In Progress', color: 'bg-blue-100 text-blue-800' },
-    { value: 'completed', label: 'Completed', color: 'bg-green-100 text-green-800' },
-    { value: 'discarded', label: 'Discarded', color: 'bg-red-100 text-red-800' }
+    { value: 'planned', label: 'Planned', color: 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300' },
+    { value: 'in_progress', label: 'In Progress', color: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300' },
+    { value: 'completed', label: 'Completed', color: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' },
+    { value: 'discarded', label: 'Discarded', color: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300' }
   ];
 
   // Modal management
@@ -549,20 +549,20 @@ export const GoalsManager = () => {
   const CloseConfirmationModal = () => {
     return (
       <div className="fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50">
-        <div className="bg-white rounded-lg shadow-xl w-full max-w-md">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-md">
           <div className="p-6">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-semibold text-gray-800">Confirm Close</h3>
+              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Confirm Close</h3>
               <button
                 onClick={cancelClose}
-                className="text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+                className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors cursor-pointer"
               >
                 <X className="h-5 w-5" />
               </button>
             </div>
             
             <div className="mb-6">
-              <p className="text-gray-600">
+              <p className="text-gray-600 dark:text-gray-400">
                 Are you sure you want to close? Any unsaved changes will be lost.
               </p>
             </div>
@@ -570,7 +570,7 @@ export const GoalsManager = () => {
             <div className="flex gap-3">
               <button
                 onClick={cancelClose}
-                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer"
+                className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer"
               >
                 Cancel
               </button>
@@ -679,13 +679,13 @@ export const GoalsManager = () => {
 
     return (
       <div className="fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50">
-        <div className="bg-white rounded-lg shadow-xl w-full max-w-md max-h-[90vh] overflow-y-auto">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-md max-h-[90vh] overflow-y-auto">
           <div className="p-6">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-semibold text-gray-800">{getModalTitle()}</h3>
+              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">{getModalTitle()}</h3>
               <button
                 onClick={closeModal}
-                className="text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+                className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors cursor-pointer"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -697,7 +697,7 @@ export const GoalsManager = () => {
                   {/* Avatar Section */}
                   <div className="text-center">
                     <div className="relative inline-block">
-                      <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-gray-200 bg-gray-100 flex items-center justify-center">
+                      <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
                         {formData.avatar ? (
                           <img 
                             src={formData.avatar} 
@@ -718,7 +718,7 @@ export const GoalsManager = () => {
                       )}
                     </div>
                     <div className="mt-3">
-                      <label className="cursor-pointer inline-flex items-center gap-2 px-3 py-2 bg-blue-50 hover:bg-blue-100 text-blue-600 text-sm rounded-lg transition-colors">
+                      <label className="cursor-pointer inline-flex items-center gap-2 px-3 py-2 bg-blue-50 dark:bg-blue-900/50 hover:bg-blue-100 dark:hover:bg-blue-900/70 text-blue-600 dark:text-blue-400 text-sm rounded-lg transition-colors">
                         <Upload className="w-4 h-4" />
                         {formData.avatar ? 'Change Photo' : 'Upload Photo'}
                         <input
@@ -728,31 +728,31 @@ export const GoalsManager = () => {
                           className="hidden"
                         />
                       </label>
-                      <p className="text-xs text-gray-500 mt-1">Optional - Max 5MB</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Optional - Max 5MB</p>
                     </div>
                   </div>
 
                   {/* Inline Introduction */}
                   <div className="text-center">
-                    <div className="text-2xl text-gray-800 leading-relaxed">
+                    <div className="text-2xl text-gray-800 dark:text-gray-100 leading-relaxed">
                       Hello, my name is{' '}
                       <input
                         type="text"
                         value={formData.name || ''}
                         onChange={(e) => updateFormData('name', e.target.value)}
                         placeholder="your name"
-                        className="inline-block min-w-[200px] max-w-[300px] px-2 py-1 border-b-2 border-blue-300 focus:border-blue-500 bg-transparent text-center outline-none font-medium"
+                        className="inline-block min-w-[200px] max-w-[300px] px-2 py-1 border-b-2 border-blue-300 dark:border-blue-600 focus:border-blue-500 dark:focus:border-blue-400 bg-transparent text-center outline-none font-medium dark:text-gray-100"
                         style={{ width: `${Math.max(120, (formData.name || 'your name').length * 14)}px` }}
                       />
                     </div>
-                    <div className="text-2xl text-gray-800 leading-relaxed mt-4">
+                    <div className="text-2xl text-gray-800 dark:text-gray-100 leading-relaxed mt-4">
                       and this is My Progress At{' '}
                       <input
                         type="text"
                         value={formData.company || ''}
                         onChange={(e) => updateFormData('company', e.target.value)}
                         placeholder="company name"
-                        className="inline-block min-w-[200px] max-w-[300px] px-2 py-1 border-b-2 border-purple-300 focus:border-purple-500 bg-transparent text-center outline-none font-medium"
+                        className="inline-block min-w-[200px] max-w-[300px] px-2 py-1 border-b-2 border-purple-300 dark:border-purple-600 focus:border-purple-500 dark:focus:border-purple-400 bg-transparent text-center outline-none font-medium dark:text-gray-100"
                         style={{ width: `${Math.max(140, (formData.company || 'company name').length * 14)}px` }}
                       />
                     </div>
@@ -763,7 +763,7 @@ export const GoalsManager = () => {
               {modalType === 'stage' && (
                 <>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Stage name <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -771,17 +771,17 @@ export const GoalsManager = () => {
                       value={formData.name || ''}
                       onChange={(e) => updateFormData('name', e.target.value)}
                       placeholder="e.g. Onboarding, Q1 2025"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Status
                     </label>
                     <select
                       value={formData.status || 'planned'}
                       onChange={(e) => updateFormData('status', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent cursor-pointer"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 cursor-pointer"
                     >
                       {statusOptions.map(option => (
                         <option key={option.value} value={option.value}>
@@ -791,36 +791,36 @@ export const GoalsManager = () => {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Start date
                     </label>
                     <input
                       type="date"
                       value={formData.startDate || ''}
                       onChange={(e) => updateFormData('startDate', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent cursor-pointer"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 cursor-pointer"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       End date
                     </label>
                     <input
                       type="date"
                       value={formData.endDate || ''}
                       onChange={(e) => updateFormData('endDate', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent cursor-pointer"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 cursor-pointer"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Description
                     </label>
                     <textarea
                       value={formData.description || ''}
                       onChange={(e) => updateFormData('description', e.target.value)}
                       placeholder="Describe the general objectives of this stage..."
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 resize-none"
                       rows={3}
                     />
                   </div>
@@ -829,8 +829,8 @@ export const GoalsManager = () => {
 
               {modalType === 'objective' && (
                 <>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Objective title <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -838,17 +838,17 @@ export const GoalsManager = () => {
                       value={formData.title || ''}
                       onChange={(e) => updateFormData('title', e.target.value)}
                       placeholder="e.g. Master development tools"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Status
                     </label>
                     <select
                       value={formData.status || 'planned'}
                       onChange={(e) => updateFormData('status', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent cursor-pointer"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 cursor-pointer"
                     >
                       {statusOptions.map(option => (
                         <option key={option.value} value={option.value}>
@@ -858,48 +858,48 @@ export const GoalsManager = () => {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Start date
                     </label>
                     <input
                       type="date"
                       value={formData.startDate || ''}
                       onChange={(e) => updateFormData('startDate', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent cursor-pointer"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 cursor-pointer"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       End date
                     </label>
                     <input
                       type="date"
                       value={formData.endDate || ''}
                       onChange={(e) => updateFormData('endDate', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent cursor-pointer"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 cursor-pointer"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Motivation/Purpose
                     </label>
                     <textarea
                       value={formData.motivation || ''}
                       onChange={(e) => updateFormData('motivation', e.target.value)}
                       placeholder="Why this objective is important..."
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 resize-none"
                       rows={3}
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Expected results
                     </label>
                     <textarea
                       value={formData.expectedResults || ''}
                       onChange={(e) => updateFormData('expectedResults', e.target.value)}
                       placeholder="What is expected to be achieved by completing this objective..."
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 resize-none"
                       rows={3}
                     />
                   </div>
@@ -908,14 +908,14 @@ export const GoalsManager = () => {
 
               {modalType === 'task' && (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     Task description <span className="text-red-500">*</span>
                   </label>
                   <textarea
                     value={formData.description || ''}
                     onChange={(e) => updateFormData('description', e.target.value)}
                     placeholder="Describe what needs to be done..."
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 resize-none"
                     rows={3}
                   />
                 </div>
@@ -923,14 +923,14 @@ export const GoalsManager = () => {
 
               {modalType === 'outcome' && (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     Result description <span className="text-red-500">*</span>
                   </label>
                   <textarea
                     value={formData.description || ''}
                     onChange={(e) => updateFormData('description', e.target.value)}
                     placeholder="Describe the expected result..."
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 resize-none"
                     rows={3}
                   />
                 </div>
@@ -939,7 +939,7 @@ export const GoalsManager = () => {
               {modalType === 'feedback' && (
                 <>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Author <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -947,18 +947,18 @@ export const GoalsManager = () => {
                       value={formData.author || ''}
                       onChange={(e) => updateFormData('author', e.target.value)}
                       placeholder="Who is providing this feedback?"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Feedback <span className="text-red-500">*</span>
                     </label>
                     <textarea
                       value={formData.comment || ''}
                       onChange={(e) => updateFormData('comment', e.target.value)}
                       placeholder="Share your feedback, comments, or constructive observations..."
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 resize-none"
                       rows={4}
                     />
                   </div>
@@ -969,14 +969,14 @@ export const GoalsManager = () => {
             <div className="flex gap-3 mt-6">
               <button
                 onClick={closeModal}
-                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer"
+                className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 onClick={handleSubmit}
                 disabled={!isFormValid()}
-                className="flex-1 px-4 py-2 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-lg transition-colors cursor-pointer disabled:cursor-not-allowed"
+                className="flex-1 px-4 py-2 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300 dark:disabled:bg-gray-600 disabled:cursor-not-allowed text-white rounded-lg transition-colors cursor-pointer disabled:cursor-not-allowed"
               >
                 {editingId ? 'Save' : 'Create'}
               </button>
@@ -991,8 +991,8 @@ export const GoalsManager = () => {
   if (!person) {
     return (
       <>
-        <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 w-full max-w-md">
             <div className="text-center mb-8">
               <img src="/logo.png" alt="Next.js logo" className="max-w-[50%] w-[50%] mx-auto mb-4" />
             </div>
@@ -1016,7 +1016,7 @@ export const GoalsManager = () => {
                   onChange={handleFileLoad}
                   className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                 />
-                <button className="w-full bg-gray-500 hover:bg-gray-600 text-white font-medium py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors cursor-pointer">
+                <button className="w-full bg-gray-500 dark:bg-gray-600 hover:bg-gray-600 dark:hover:bg-gray-700 text-white font-medium py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors cursor-pointer">
                   <Upload className="h-5 w-5" />
                   Load JSON File
                 </button>
@@ -1032,13 +1032,13 @@ export const GoalsManager = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
         {/* Header - Fixed */}
-        <div className="fixed top-0 left-0 right-0 bg-white shadow-sm border-b z-40">
+        <div className="fixed top-0 left-0 right-0 bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 z-40">
           <div className="max-w-6xl mx-auto px-4 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-100 flex items-center justify-center border-2 border-white shadow-sm">
+                <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-100 dark:bg-gray-700 flex items-center justify-center border-2 border-white dark:border-gray-800 shadow-sm">
                   {person.avatar ? (
                     <img 
                       src={person.avatar} 
@@ -1051,17 +1051,17 @@ export const GoalsManager = () => {
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <h1 className="text-xl font-bold text-gray-800">
+                    <h1 className="text-xl font-bold text-gray-800 dark:text-gray-100">
                       {person.name}@{person.company || 'Company'}
                     </h1>
                     <button
                       onClick={() => openModal('person', { name: person.name, company: person.company, avatar: person.avatar }, person.id)}
-                      className="text-gray-400 hover:text-blue-500 transition-colors cursor-pointer"
+                      className="text-gray-400 dark:text-gray-500 hover:text-blue-500 dark:hover:text-blue-400 transition-colors cursor-pointer"
                     >
                       <Edit className="h-4 w-4" />
                     </button>
                   </div>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
                     Created: {new Date(person.createdAt).toLocaleDateString()}
                   </p>
                 </div>
@@ -1088,7 +1088,7 @@ export const GoalsManager = () => {
         {/* Main Content - With top padding to account for fixed header */}
         <div className="pt-32 max-w-6xl mx-auto px-4 py-6">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold text-gray-800">Development Stages</h2>
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100">Development Stages</h2>
             <button
               onClick={() => openModal('stage')}
               className="flex items-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors cursor-pointer"
@@ -1101,17 +1101,17 @@ export const GoalsManager = () => {
           {person.stages.length === 0 ? (
             <div className="text-center py-12">
               <FileText className="mx-auto h-16 w-16 text-gray-400 mb-4" />
-              <p className="text-gray-500 text-lg">No stages created</p>
-              <p className="text-gray-400">Start by adding the first development stage</p>
+              <p className="text-gray-500 dark:text-gray-400 text-lg">No stages created</p>
+              <p className="text-gray-400 dark:text-gray-500">Start by adding the first development stage</p>
             </div>
           ) : (
             <div className="space-y-4">
               {person.stages
                 .sort((a, b) => (new Date(b.startDate || b.createdAt || 0) as any) - (new Date(a.startDate || a.createdAt || 0) as any))
                 .map((stage) => (
-                <div key={stage.id} className="bg-white rounded-lg shadow border">
+                <div key={stage.id} className="bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700">
                   <div
-                    className="p-4 cursor-pointer hover:bg-gray-50 transition-colors"
+                    className="p-4 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                     onClick={() => toggleStageExpansion(stage.id)}
                   >
                     <div className="flex items-center justify-between">
@@ -1123,12 +1123,12 @@ export const GoalsManager = () => {
                         )}
                         <div>
                           <div className="flex items-center gap-2">
-                            <h3 className="text-lg font-semibold text-gray-800">{stage.name}</h3>
+                            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">{stage.name}</h3>
                             <span className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusInfo(stage.status).color}`}>
                               {getStatusInfo(stage.status).label}
                             </span>
                           </div>
-                          <div className="flex items-center gap-4 text-sm text-gray-500">
+                          <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
                             <span className="flex items-center gap-1">
                               <Calendar className="h-4 w-4" />
                               {stage.startDate} {stage.endDate && `- ${stage.endDate}`}
@@ -1139,10 +1139,10 @@ export const GoalsManager = () => {
                       </div>
                       <div className="flex items-center gap-3">
                         <div className="text-right">
-                          <div className="text-sm font-medium text-gray-700">
+                          <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
                             {getStageProgress(stage)}% completed
                           </div>
-                          <div className="w-24 bg-gray-200 rounded-full h-2">
+                          <div className="w-24 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                             <div
                               className="bg-blue-500 h-2 rounded-full transition-all"
                               style={{ width: `${getStageProgress(stage)}%` }}
@@ -1152,13 +1152,13 @@ export const GoalsManager = () => {
                         <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
                           <button
                             onClick={() => openModal('stage', stage, stage.id)}
-                            className="text-gray-400 hover:text-blue-500 transition-colors cursor-pointer"
+                            className="text-gray-400 dark:text-gray-500 hover:text-blue-500 dark:hover:text-blue-400 transition-colors cursor-pointer"
                           >
                             <Edit className="h-4 w-4" />
                           </button>
                           <button
                             onClick={() => deleteStage(stage.id)}
-                            className="text-gray-400 hover:text-red-500 transition-colors cursor-pointer"
+                            className="text-gray-400 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-400 transition-colors cursor-pointer"
                           >
                             <Trash2 className="h-4 w-4" />
                           </button>
@@ -1166,15 +1166,15 @@ export const GoalsManager = () => {
                       </div>
                     </div>
                     {stage.description && (
-                      <p className="mt-2 text-gray-600 ml-8">{stage.description}</p>
+                      <p className="mt-2 text-gray-600 dark:text-gray-400 ml-8">{stage.description}</p>
                     )}
                   </div>
 
                   {expandedStages.has(stage.id) && (
-                    <div className="border-t bg-gray-50">
+                    <div className="border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
                       <div className="p-4">
                         <div className="flex justify-between items-center mb-4">
-                          <h4 className="font-medium text-gray-700">Objectives</h4>
+                          <h4 className="font-medium text-gray-700 dark:text-gray-300">Objectives</h4>
                           <button
                             onClick={() => openModal('objective', { stageId: stage.id })}
                             className="flex items-center gap-1 px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded transition-colors cursor-pointer"
@@ -1185,15 +1185,15 @@ export const GoalsManager = () => {
                         </div>
 
                         {stage.objectives.length === 0 ? (
-                          <p className="text-gray-500 text-center py-4">No objectives defined</p>
+                          <p className="text-gray-500 dark:text-gray-400 text-center py-4">No objectives defined</p>
                         ) : (
                           <div className="space-y-3">
                             {stage.objectives
                               .sort((a, b) => (new Date(b.startDate || b.createdAt || 0) as any) - (new Date(a.startDate || a.createdAt || 0) as any))
                               .map((objective) => (
-                                <div key={objective.id} className="bg-white rounded border">
+                                <div key={objective.id} className="bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700">
                                   <div
-                                    className="p-3 cursor-pointer hover:bg-gray-50 transition-colors"
+                                    className="p-3 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                                     onClick={() => toggleObjectiveExpansion(objective.id)}
                                   >
                                     <div className="flex items-center justify-between">
@@ -1206,22 +1206,22 @@ export const GoalsManager = () => {
                                         <Target className="h-4 w-4 text-orange-500" />
                                         <div>
                                           <div className="flex items-center gap-2">
-                                            <h5 className="font-medium text-gray-800">{objective.title}</h5>
+                                            <h5 className="font-medium text-gray-800 dark:text-gray-100">{objective.title}</h5>
                                             <span className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusInfo(objective.status).color}`}>
                                               {getStatusInfo(objective.status).label}
                                             </span>
                                           </div>
-                                          <div className="text-xs text-gray-500">
+                                          <div className="text-xs text-gray-500 dark:text-gray-400">
                                             {objective.startDate} {objective.endDate && `- ${objective.endDate}`}
                                           </div>
                                         </div>
                                       </div>
                                       <div className="flex items-center gap-2">
                                         <div className="text-right">
-                                          <div className="text-xs font-medium text-gray-600">
+                                          <div className="text-xs font-medium text-gray-600 dark:text-gray-400">
                                             {getObjectiveProgress(objective)}%
                                           </div>
-                                          <div className="w-16 bg-gray-200 rounded-full h-1.5">
+                                          <div className="w-16 bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
                                             <div
                                               className="bg-orange-500 h-1.5 rounded-full transition-all"
                                               style={{ width: `${getObjectiveProgress(objective)}%` }}
@@ -1231,13 +1231,13 @@ export const GoalsManager = () => {
                                         <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
                                           <button
                                             onClick={() => openModal('objective', { ...objective, stageId: stage.id }, objective.id)}
-                                            className="text-gray-400 hover:text-blue-500 transition-colors cursor-pointer"
+                                            className="text-gray-400 dark:text-gray-500 hover:text-blue-500 dark:hover:text-blue-400 transition-colors cursor-pointer"
                                           >
                                             <Edit className="h-3 w-3" />
                                           </button>
                                           <button
                                             onClick={() => deleteObjective(stage.id, objective.id)}
-                                            className="text-gray-400 hover:text-red-500 transition-colors cursor-pointer"
+                                            className="text-gray-400 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-400 transition-colors cursor-pointer"
                                           >
                                             <Trash2 className="h-3 w-3" />
                                           </button>
@@ -1247,18 +1247,18 @@ export const GoalsManager = () => {
                                   </div>
 
                                   {expandedObjectives.has(objective.id) && (
-                                    <div className="border-t bg-gray-50 p-3">
+                                    <div className="border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 p-3">
                                       {objective.motivation && (
                                         <div className="mb-3">
-                                          <h6 className="text-xs font-medium text-gray-600 mb-1">Motivation</h6>
-                                          <p className="text-sm text-gray-700">{objective.motivation}</p>
+                                          <h6 className="text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Motivation</h6>
+                                          <p className="text-sm text-gray-700 dark:text-gray-300">{objective.motivation}</p>
                                         </div>
                                       )}
                                       
                                       {objective.expectedResults && (
                                         <div className="mb-3">
-                                          <h6 className="text-xs font-medium text-gray-600 mb-1">Expected Results</h6>
-                                          <p className="text-sm text-gray-700">{objective.expectedResults}</p>
+                                          <h6 className="text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Expected Results</h6>
+                                          <p className="text-sm text-gray-700 dark:text-gray-300">{objective.expectedResults}</p>
                                         </div>
                                       )}
 
@@ -1266,7 +1266,7 @@ export const GoalsManager = () => {
                                         {/* Tasks */}
                                         <div>
                                           <div className="flex justify-between items-center mb-2">
-                                            <h6 className="text-xs font-medium text-gray-600">Tasks</h6>
+                                            <h6 className="text-xs font-medium text-gray-600 dark:text-gray-400">Tasks</h6>
                                             <button
                                               onClick={() => openModal('task', { stageId: stage.id, objectiveId: objective.id })}
                                               className="flex items-center gap-1 px-2 py-1 bg-orange-500 hover:bg-orange-600 text-white text-xs rounded transition-colors cursor-pointer"
@@ -1277,13 +1277,13 @@ export const GoalsManager = () => {
                                           </div>
 
                                           {(!objective.tasks || objective.tasks.length === 0) ? (
-                                            <p className="text-xs text-gray-500 text-center py-2">No tasks defined</p>
+                                            <p className="text-xs text-gray-500 dark:text-gray-400 text-center py-2">No tasks defined</p>
                                           ) : (
                                             <div className="space-y-2">
                                               {objective.tasks.map((task) => (
                                                 <div
                                                   key={task.id}
-                                                  className="flex items-center gap-2 p-2 bg-white rounded border group"
+                                                  className="flex items-center gap-2 p-2 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 group"
                                                 >
                                                   <button
                                                     onClick={() => toggleTask(stage.id, objective.id, task.id)}
@@ -1295,25 +1295,25 @@ export const GoalsManager = () => {
                                                       <Circle className="h-4 w-4 text-gray-400" />
                                                     )}
                                                   </button>
-                                                  <span className={`text-sm flex-1 ${task.completed ? 'line-through text-gray-500' : 'text-gray-700'}`}>
+                                                  <span className={`text-sm flex-1 ${task.completed ? 'line-through text-gray-500 dark:text-gray-500' : 'text-gray-700 dark:text-gray-300'}`}>
                                                     {task.description}
                                                   </span>
                                                   <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                                                     <button
                                                       onClick={() => openModal('task', { ...task, stageId: stage.id, objectiveId: objective.id }, task.id)}
-                                                      className="text-gray-400 hover:text-blue-500 transition-colors cursor-pointer"
+                                                      className="text-gray-400 dark:text-gray-500 hover:text-blue-500 dark:hover:text-blue-400 transition-colors cursor-pointer"
                                                     >
                                                       <Edit className="h-3 w-3" />
                                                     </button>
                                                     <button
                                                       onClick={() => deleteTask(stage.id, objective.id, task.id)}
-                                                      className="text-gray-400 hover:text-red-500 transition-colors cursor-pointer"
+                                                      className="text-gray-400 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-400 transition-colors cursor-pointer"
                                                     >
                                                       <Trash2 className="h-3 w-3" />
                                                     </button>
                                                   </div>
                                                   {task.completed && task.completedAt && (
-                                                    <span className="text-xs text-gray-400">
+                                                    <span className="text-xs text-gray-400 dark:text-gray-500">
                                                       {new Date(task.completedAt).toLocaleDateString()}
                                                     </span>
                                                   )}
@@ -1326,7 +1326,7 @@ export const GoalsManager = () => {
                                         {/* Results */}
                                         <div>
                                           <div className="flex justify-between items-center mb-2">
-                                            <h6 className="text-xs font-medium text-gray-600">Results</h6>
+                                            <h6 className="text-xs font-medium text-gray-600 dark:text-gray-400">Results</h6>
                                             <button
                                               onClick={() => openModal('outcome', { stageId: stage.id, objectiveId: objective.id })}
                                               className="flex items-center gap-1 px-2 py-1 bg-green-500 hover:bg-green-600 text-white text-xs rounded transition-colors cursor-pointer"
@@ -1337,13 +1337,13 @@ export const GoalsManager = () => {
                                           </div>
 
                                           {(!objective.outcomes || objective.outcomes.length === 0) ? (
-                                            <p className="text-xs text-gray-500 text-center py-2">No results defined</p>
+                                            <p className="text-xs text-gray-500 dark:text-gray-400 text-center py-2">No results defined</p>
                                           ) : (
                                             <div className="space-y-2">
                                               {objective.outcomes.map((outcome) => (
                                                 <div
                                                   key={outcome.id}
-                                                  className="flex items-center gap-2 p-2 bg-white rounded border group"
+                                                  className="flex items-center gap-2 p-2 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 group"
                                                 >
                                                   <button
                                                     onClick={() => toggleOutcome(stage.id, objective.id, outcome.id)}
@@ -1355,25 +1355,25 @@ export const GoalsManager = () => {
                                                       <Circle className="h-4 w-4 text-gray-400" />
                                                     )}
                                                   </button>
-                                                  <span className={`text-sm flex-1 ${outcome.achieved ? 'line-through text-gray-500' : 'text-gray-700'}`}>
+                                                  <span className={`text-sm flex-1 ${outcome.achieved ? 'line-through text-gray-500 dark:text-gray-500' : 'text-gray-700 dark:text-gray-300'}`}>
                                                     {outcome.description}
                                                   </span>
                                                   <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                                                     <button
                                                       onClick={() => openModal('outcome', { ...outcome, stageId: stage.id, objectiveId: objective.id }, outcome.id)}
-                                                      className="text-gray-400 hover:text-blue-500 transition-colors cursor-pointer"
+                                                      className="text-gray-400 dark:text-gray-500 hover:text-blue-500 dark:hover:text-blue-400 transition-colors cursor-pointer"
                                                     >
                                                       <Edit className="h-3 w-3" />
                                                     </button>
                                                     <button
                                                       onClick={() => deleteOutcome(stage.id, objective.id, outcome.id)}
-                                                      className="text-gray-400 hover:text-red-500 transition-colors cursor-pointer"
+  className="text-gray-400 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-400 transition-colors cursor-pointer"
                                                     >
                                                       <Trash2 className="h-3 w-3" />
                                                     </button>
                                                   </div>
                                                   {outcome.achieved && outcome.achievedAt && (
-                                                    <span className="text-xs text-gray-400">
+                                                    <span className="text-xs text-gray-400 dark:text-gray-500">
                                                       {new Date(outcome.achievedAt).toLocaleDateString()}
                                                     </span>
                                                   )}
@@ -1391,9 +1391,9 @@ export const GoalsManager = () => {
                         )}
 
                         {/* Feedback Section - At Stage Level */}
-                        <div className="mt-6 pt-4 border-t border-gray-200">
+                        <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
                           <div className="flex justify-between items-center mb-4">
-                            <h4 className="font-medium text-gray-700">Feedback & Comments</h4>
+                            <h4 className="font-medium text-gray-700 dark:text-gray-300">Feedback & Comments</h4>
                             <button
                               onClick={() => openModal('feedback', { stageId: stage.id })}
                               className="flex items-center gap-1 px-3 py-1 bg-purple-500 hover:bg-purple-600 text-white text-sm rounded transition-colors cursor-pointer"
@@ -1404,17 +1404,17 @@ export const GoalsManager = () => {
                           </div>
 
                           {(!stage.feedback || stage.feedback.length === 0) ? (
-                            <div className="text-center py-8 bg-gray-50 rounded-lg border-2 border-dashed border-gray-200">
-                              <p className="text-sm text-gray-500">No feedback yet</p>
-                              <p className="text-xs text-gray-400 mt-1">Be the first to share feedback on this stage</p>
+                            <div className="text-center py-8 bg-gray-50 dark:bg-gray-900 rounded-lg border-2 border-dashed border-gray-200 dark:border-gray-700">
+                              <p className="text-sm text-gray-500 dark:text-gray-400">No feedback yet</p>
+                              <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">Be the first to share feedback on this stage</p>
                             </div>
                           ) : (
                             <div className="space-y-3 max-h-96 overflow-y-auto">
                               {stage.feedback.map((feedback) => (
-                                <div key={feedback.id} className="bg-white rounded-lg border p-4 shadow-sm group">
+                                <div key={feedback.id} className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 shadow-sm group">
                                   <div className="flex justify-between items-start mb-2">
                                     <div className="flex items-center gap-2">
-                                      <div className="w-8 h-8 rounded-full overflow-hidden bg-purple-100 flex items-center justify-center">
+                                      <div className="w-8 h-8 rounded-full overflow-hidden bg-purple-100 dark:bg-purple-900 flex items-center justify-center">
                                         {feedback.author === person.name && person.avatar ? (
                                           <img 
                                             src={person.avatar} 
@@ -1422,25 +1422,25 @@ export const GoalsManager = () => {
                                             className="w-full h-full object-cover"
                                           />
                                         ) : (
-                                          <User className="h-4 w-4 text-purple-600" />
+                                          <User className="h-4 w-4 text-purple-600 dark:text-purple-400" />
                                         )}
                                       </div>
                                       <div>
-                                        <p className="text-sm font-medium text-gray-800">{feedback.author}</p>
-                                        <p className="text-xs text-gray-500">
+                                        <p className="text-sm font-medium text-gray-800 dark:text-gray-100">{feedback.author}</p>
+                                        <p className="text-xs text-gray-500 dark:text-gray-400">
                                           {new Date(feedback.createdAt).toLocaleDateString()} at {new Date(feedback.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                         </p>
                                       </div>
                                     </div>
                                     <button
                                       onClick={() => deleteFeedback(stage.id, feedback.id)}
-                                      className="text-gray-400 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100 cursor-pointer"
+                                      className="text-gray-400 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-400 transition-colors opacity-0 group-hover:opacity-100 cursor-pointer"
                                     >
                                       <Trash2 className="h-4 w-4" />
                                     </button>
                                   </div>
                                   <div className="ml-10">
-                                    <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap">{feedback.comment}</p>
+                                    <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-wrap">{feedback.comment}</p>
                                   </div>
                                 </div>
                               ))}
