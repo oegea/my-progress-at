@@ -1,7 +1,9 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Plus, Upload, Download, Calendar, Target, CheckCircle, Circle, ChevronDown, ChevronRight, User, FileText, X, Edit, Trash2 } from 'lucide-react';
+
+const STORAGE_KEY = 'my-progress-at-data';
 
 const Footer = () => {
   return (
@@ -44,6 +46,27 @@ export const GoalsManager = () => {
   const [showCloseConfirmation, setShowCloseConfirmation] = useState(false);
   const fileInputRef = useRef(null);
 
+  // Load data from localStorage on component mount
+  useEffect(() => {
+    const savedData = localStorage.getItem(STORAGE_KEY);
+    if (savedData) {
+      try {
+        const parsedData = JSON.parse(savedData);
+        setPerson(parsedData);
+      } catch (error) {
+        console.error('Error loading data from localStorage:', error);
+        localStorage.removeItem(STORAGE_KEY); // Clear corrupted data
+      }
+    }
+  }, []);
+
+  // Save data to localStorage whenever person changes
+  useEffect(() => {
+    if (person) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(person));
+    }
+  }, [person]);
+
   const statusOptions = [
     { value: 'planned', label: 'Planned', color: 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300' },
     { value: 'in_progress', label: 'In Progress', color: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300' },
@@ -72,6 +95,7 @@ export const GoalsManager = () => {
   };
 
   const confirmClose = () => {
+    localStorage.removeItem(STORAGE_KEY); // Clear localStorage
     setPerson(null);
     setShowCloseConfirmation(false);
   };
@@ -79,7 +103,6 @@ export const GoalsManager = () => {
   const cancelClose = () => {
     setShowCloseConfirmation(false);
   };
-
   // Create/Edit person
   const savePerson = (data) => {
     if (!data.name?.trim() || !data.company?.trim()) return;
@@ -362,6 +385,7 @@ export const GoalsManager = () => {
       }));
     }
   };
+  
   const saveOutcome = (data) => {
     if (!data.description?.trim() || !data.stageId || !data.objectiveId) return;
 
@@ -439,7 +463,6 @@ export const GoalsManager = () => {
       }));
     }
   };
-
   // Toggle task completion
   const toggleTask = (stageId, objectiveId, taskId) => {
     setPerson(prev => ({
@@ -563,7 +586,7 @@ export const GoalsManager = () => {
             
             <div className="mb-6">
               <p className="text-gray-600 dark:text-gray-400">
-                Are you sure you want to close? Any unsaved changes will be lost.
+                Are you sure you want to close? This will clear all your saved data from this browser.
               </p>
             </div>
 
@@ -578,7 +601,7 @@ export const GoalsManager = () => {
                 onClick={confirmClose}
                 className="flex-1 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors cursor-pointer"
               >
-                Close Anyway
+                Close & Clear Data
               </button>
             </div>
           </div>
@@ -590,7 +613,6 @@ export const GoalsManager = () => {
   const getStatusInfo = (status) => {
     return statusOptions.find(opt => opt.value === status) || statusOptions[0];
   };
-
   // Modal Component
   const Modal = () => {
     const [formData, setFormData] = useState<any>(modalData);
@@ -829,7 +851,7 @@ export const GoalsManager = () => {
 
               {modalType === 'objective' && (
                 <>
-  <div>
+                  <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Objective title <span className="text-red-500">*</span>
                     </label>
@@ -905,7 +927,6 @@ export const GoalsManager = () => {
                   </div>
                 </>
               )}
-
               {modalType === 'task' && (
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
@@ -1169,8 +1190,7 @@ export const GoalsManager = () => {
                       <p className="mt-2 text-gray-600 dark:text-gray-400 ml-8">{stage.description}</p>
                     )}
                   </div>
-
-                  {expandedStages.has(stage.id) && (
+                {expandedStages.has(stage.id) && (
                     <div className="border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
                       <div className="p-4">
                         <div className="flex justify-between items-center mb-4">
@@ -1367,7 +1387,7 @@ export const GoalsManager = () => {
                                                     </button>
                                                     <button
                                                       onClick={() => deleteOutcome(stage.id, objective.id, outcome.id)}
-  className="text-gray-400 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-400 transition-colors cursor-pointer"
+                                                      className="text-gray-400 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-400 transition-colors cursor-pointer"
                                                     >
                                                       <Trash2 className="h-3 w-3" />
                                                     </button>
@@ -1409,7 +1429,7 @@ export const GoalsManager = () => {
                               <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">Be the first to share feedback on this stage</p>
                             </div>
                           ) : (
-                            <div className="space-y-3 max-h-96 overflow-y-auto">
+                            <div className="space-y-3">
                               {stage.feedback.map((feedback) => (
                                 <div key={feedback.id} className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 shadow-sm group">
                                   <div className="flex justify-between items-start mb-2">
