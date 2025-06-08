@@ -41,6 +41,7 @@ export const GoalsManager = () => {
   const [modalData, setModalData] = useState({});
   const [modalType, setModalType] = useState('');
   const [editingId, setEditingId] = useState(null);
+  const [showCloseConfirmation, setShowCloseConfirmation] = useState(false);
   const fileInputRef = useRef(null);
 
   const statusOptions = [
@@ -63,6 +64,20 @@ export const GoalsManager = () => {
     setModalData({});
     setModalType('');
     setEditingId(null);
+  };
+
+  // Handle close button with confirmation
+  const handleCloseClick = () => {
+    setShowCloseConfirmation(true);
+  };
+
+  const confirmClose = () => {
+    setPerson(null);
+    setShowCloseConfirmation(false);
+  };
+
+  const cancelClose = () => {
+    setShowCloseConfirmation(false);
   };
 
   // Create/Edit person
@@ -528,6 +543,48 @@ export const GoalsManager = () => {
     if (stage.objectives.length === 0) return 0;
     const totalProgress = stage.objectives.reduce((sum, obj) => sum + getObjectiveProgress(obj), 0);
     return Math.round(totalProgress / stage.objectives.length);
+  };
+
+  // Close Confirmation Modal Component
+  const CloseConfirmationModal = () => {
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+        <div className="bg-white rounded-lg shadow-xl w-full max-w-md">
+          <div className="p-6">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-lg font-semibold text-gray-800">Confirm Close</h3>
+              <button
+                onClick={cancelClose}
+                className="text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+            
+            <div className="mb-6">
+              <p className="text-gray-600">
+                Are you sure you want to close? Any unsaved changes will be lost.
+              </p>
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={cancelClose}
+                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmClose}
+                className="flex-1 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors cursor-pointer"
+              >
+                Close Anyway
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   };
 
   const getStatusInfo = (status) => {
@@ -1015,13 +1072,13 @@ export const GoalsManager = () => {
                   className="flex items-center gap-2 px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors cursor-pointer"
                 >
                   <Download className="h-4 w-4" />
-                  Download
+                  Save
                 </button>
                 <button
-                  onClick={() => setPerson(null)}
+                  onClick={handleCloseClick}
                   className="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors cursor-pointer"
                 >
-                  New
+                  Close
                 </button>
               </div>
             </div>
@@ -1402,6 +1459,7 @@ export const GoalsManager = () => {
         <Footer />
       </div>
       {showModal && <Modal />}
+      {showCloseConfirmation && <CloseConfirmationModal />}
     </>
   );
 };
